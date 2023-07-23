@@ -493,7 +493,7 @@ grid-template-areas:"card card"
 
 }
 
-@media (max-width:700px) {
+@media (max-width:400px) {
 .container{
 grid-template-areas:"card card"
 }
@@ -547,13 +547,13 @@ height:25px;
 
 }
 .har{
-padding:20px;
+margin-bottom:20px;
 }
 .col img{
 width:200px;
 }
 .footer{
-grid-template-areas:"information information";
+column-gap:20px;
 
 }
 .c{
