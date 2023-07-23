@@ -1,0 +1,22 @@
+{%extends 'etronic/addform.html'%}
+
+{%block body%}
+ <div class="grid">
+ <div class="gridcard">
+        {%for i in prod%}
+        <div class="card">
+ <img data-name="bimg" src="{{i.photo1.url}}"  >
+        <h1 data-name="bpk" class="pk" style="display:none">{{i.pk}}</h1>
+  <h3 data-name="bname" class="name">{{i.name}}</h3>
+  <p data-name="bprice" class="price">{{i.price}} AZN</p>
+            <form action="{%url 'delform'%}" method="POST">
+                {%csrf_token%}
+                <input type="hidden" name="pk" value="{{i.id}}">
+            <button type="submit">Удалить</button>
+                </form>
+            </div>
+        {%endfor%}
+
+        </div>
+    </div>
+{%endblock%}

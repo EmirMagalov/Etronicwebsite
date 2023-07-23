@@ -1,0 +1,59 @@
+{%extends 'etronic/base.html'%}
+{%block body%}
+<div class="navbar">
+
+  {%for i in categ%}
+    <a href="{%url 'categ' i.pk%}">{{i.categoria}}</a>
+
+    {%endfor%}
+  <div class="open">
+    <a class=""><i data-action="open" class="fa fa-bars"></i></a>
+    <a><i data-action="shop" class="fa fa-shopping-cart"></i></a>
+        </div>
+</div>
+
+ <div class="container">
+   {%for i in categpk%}
+     <div class="get">
+<div class="card">
+    <a href="{%url 'opis' i.pk%}">
+
+ <img data-name="bimg" src="{{i.photo1.url}}"  >
+
+        <h1 data-name="bpk" class="pk" style="display:none">{{i.pk}}</h1>
+  <h3 data-name="bname" class="name">{{i.name}}</h3>
+  <p data-name="bprice" class="price">{{i.price}} AZN</p>
+</a>
+      <p style="display:none" class="quan">1</p>
+        <form action="{%url 'basket'%}" class="basketform" method="GET">
+         <input type="hidden" name="id" value="{{i.id}}">
+         <input type="hidden" name="name" value="{{i.name}}">
+         <input type="hidden" name="photo" value="{{i.photo1.url}}">
+         <input type="hidden" name="price" class="priceval" value="{{i.price}}">
+        <input type="hidden" name="quan" class="quanval" value="1">
+           <button  data-action="bask">В корзину</button>
+            </form>
+ </div>
+         </div>
+    {%endfor%}
+
+</div>
+
+
+
+<div class="model">
+<a  class="close" ><i  data-action="close" class="fa fa-close"></i> </a>
+     <form action="{%url 'model'%}" method="GET">
+        {%for i in model%}
+         <label class="contain">{{i.title}}
+  <input  name="model" type="checkbox" value="{{i.id}}">
+    <input name="modelid" type="hidden" value="{{i.model.id}}">
+  <span class="checkmark"></span>
+</label>
+                  {%endfor%}
+ <button >Поиск</button>
+   </form>
+
+</div>
+
+{%endblock%}

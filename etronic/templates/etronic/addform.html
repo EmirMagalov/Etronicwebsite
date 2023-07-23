@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<style>
+.card {
+box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+width: 130px;
+margin:60px 0 60px 0;
+text-align: center;
+font-family: arial;
+height:230px;
+padding-top:30px;
+}
+
+.card img{
+width:100px
+}
+
+.card .name{
+font-size:10px;
+width:120px;
+}
+.card .price{
+font-size:13px;
+width:120px;
+
+}
+.content{
+display:grid;
+grid-template-areas:"grid grid";
+}
+.gridcard{
+display:grid;
+grid-template-areas:"card card card card";
+}
+.navbar{
+overflow: hidden;
+background-color: white;
+z-index:1;
+text-align:center;
+padding:23px;
+border-bottom:1px solid black;
+}
+.navbar a{
+text-decoration:none;
+text-align:center;
+font-size:20px;
+}
+{%block style%}
+.categoria a{
+text-decoration:none;
+padding:5px;
+}
+{%endblock%}
+</style>
+<body>
+{%block body%}
+
+
+{%endblock%}
+<div class="navbar">
+    <a href="{%url 'main'%}">Главная</a>
+</div>
+<div class="content">
+    <div class="grid">
+
+<form action="{%url 'addform'%}" method="POST" enctype="multipart/form-data" >
+{%csrf_token%}
+{{ form.as_p }}
+    <button type="submit">Добавить</button>
+    </form>
+        </div>
+<div class="grid">
+     <div class="categoria">
+     {%for i in categ%}
+     <a href="{%url 'addform2' i.pk%}">{{i}}</a>
+     {%endfor%}
+         <a href="{%url 'addform'%}">Все</a>
+         </div>
+        <div class="gridcard">
+        {%for i in prod%}
+        <div class="card">
+ <img data-name="bimg" src="{{i.photo1.url}}"  >
+        <h1 data-name="bpk" class="pk" style="display:none">{{i.pk}}</h1>
+  <h3 data-name="bname" class="name">{{i.name}}</h3>
+  <p data-name="bprice" class="price">{{i.price}} AZN</p>
+            <form action="{%url 'delform'%}" method="POST">
+                {%csrf_token%}
+                <input type="hidden" name="pk" value="{{i.id}}">
+            <button type="submit">Удалить</button>
+                </form>
+            </div>
+        {%endfor%}
+
+        </div>
+    </div>
+     </div>
+
+
+</body>
+
+</html>

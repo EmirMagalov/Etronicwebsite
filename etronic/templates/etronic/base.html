@@ -1,0 +1,109 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js"></script>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css"/>
+      <link rel="stylesheet" href="{% static 'style.css' %}" />
+    <meta charset="UTF-8" >
+
+    <title>Title</title>
+</head>
+
+<body>
+<!--<div class="topnava">-->
+
+<!--</div>-->
+
+<!--<div class="topnav2">-->
+<!--    -->
+
+<!--</div>-->
+
+
+<div class="header">
+    <a  class="logo" href="{%url 'main' %}">E.tronic</a>
+    {% if user.is_superuser %}
+    <a class="admin" href="{% url 'addform'%}">Админ панель</a>
+    {%endif%}
+</div>
+
+
+{%block body%}
+<div class="content">
+
+</div>
+
+{%endblock%}
+
+
+<div class="slaider">
+<a  class="closebasket" ><i  data-action="closebasket" class="fa fa-close"></i> </a>
+<h3 style="color:white;">Ваша корзина</h3>
+
+<div class="basket">
+
+    {%for i in request.session.basket %}
+     <div class="b" id="pk{{i.id}}">
+<div class="basketcard"  >
+    <img class="image" src="{{i.photo}}" >
+</div>
+    <div class="basketcard">
+<p class="name">{{i.name}}</p>
+<p class="price">{{i.price}}</p>
+<p style="display:none" class="pricenone">{{i.price}}</p>
+        </div>
+  <div class="basketcard">
+      <div class="kalkulate">
+          <form action="{%url 'plus'%}" class="baskformPlus" method="GET">
+
+              <input type="hidden" name="name" class="nameval" value="{{i.name}}">
+            <p><button type="submit" data-action="plusbasket">+</button></p>
+              </form>
+      <p><button class="quan">{{i.quan}}</button></p>
+            <form action="{%url 'minus'%}" class="baskformMinus" method="GET">
+              <input type="hidden" name="name" class="nameval" value="{{i.name}}">
+            <p><button type="submit" data-action="minusbasket">-</button></p>
+              </form>
+          </div>
+      <form action="{%url 'del'%}" class="delform" method="GET">
+          <input name="name" type="hidden" value="{{i.name}}">
+      <button data-action="del" class="del" style="background-color:white;border:none;border-bottom:2px solid red;">Удалить</button>
+      </form>
+  </div>
+          </div>
+    {%endfor%}
+
+</div>
+    <div class="itog">
+     <p>Итог:</p>
+    <p class="kalk">0</p>
+        </div>
+</div>
+<div class="footer">
+    <div class="information">
+        <p>Информация</p>
+   <p> <a href="#">Политика конфиденциальности</a></p>
+       <p> <a href="#">Политика возврата</a></p>
+       <p> <a href="#">О компании</a></p>
+        </div>
+     <div class="information">
+         <p>Контакты</p>
+    <p><a href="#">+994506661369</a></p>
+        <p><a href="#">emir.mahalo@gmail.com</a></p>
+
+        </div>
+    <p class="c">© E.tronic 2023 </p>
+</div>
+</body>
+<script src="{% static 'style.js' %}">
+
+
+</script>
+
+</html>
